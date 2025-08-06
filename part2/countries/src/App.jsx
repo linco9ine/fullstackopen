@@ -71,7 +71,7 @@ function App() {
 	      filteredCountries.length === 0
 			? null
 			: filteredCountries.length === 1
-			    ? <Country country={filteredCountries[0]} weather={weather} iconUrl={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}/>
+			    ? <Country country={filteredCountries[0]} weather={weather} iconUrl={`https://openweathermap.org/img/wn/${weather?.weather[0]?.icon}@2x.png`}/>
 			    : filteredCountries.length < 10
 			        ? <Countries countries={filteredCountries} show={show} />
 			        : <p>Too many matches. specify another filter</p>
