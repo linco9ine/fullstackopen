@@ -101,8 +101,8 @@ app.put('/api/persons/:id', (req, res, next) => {
     .catch(next)
 })
 
-
-const errorHandler = (err, req, res) => {
+// eslint-disable-next-line no-unused-vars
+const errorHandler = (err, req, res, next) => {
   console.log(err.message)
 
   if (err.name === 'CastError') {
