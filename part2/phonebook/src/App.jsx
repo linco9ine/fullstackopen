@@ -38,6 +38,7 @@ const Person = ({ id, name, number, onDelete}) => {
 const Persons = ({ persons, searchWord, onDelete }) => {
   return (
     <>
+    
 	  {
         searchWord
 		  ? persons.filter(person => person.name.toLowerCase().includes(searchWord.toLowerCase()))
@@ -53,15 +54,12 @@ const Delete = ({ id, name, onDelete }) => {
 }
 
 const Notification = ({ message }) => {
-	if (message === null) {
-		return null
-	}
-
 	const notificationStyle = {
 	  color: 'green',
-	  border: '2px solid green',
-	  padding: '5px',
-	  margin: '5px'
+	  border: '1px solid green',
+	  padding: '2px',
+    margin: '3px',
+    visibility: message ? 'visible' : 'hidden'
 	}
 
 	return (
@@ -72,15 +70,12 @@ const Notification = ({ message }) => {
 }
 
 const ErrorMessage = ({ message }) => {
- if (message === null) {
-   return null
- }
-
  const errorMessageStyle = {
    color: 'red',
-   border: '2px solid red',
-   padding: '5px',
-   margin: '5px'
+   border: '1px solid red',
+   padding: '2px',
+   margin: '3px',
+   visibility: message ? 'visible' : 'hidden'
  }
 
  return (
@@ -117,8 +112,12 @@ const App = () => {
 		    .then(data => {
 				setPersons(persons.concat(data))
 				setNotifyAdded(`Added ${data.name}`)
-				setTimeout(() => setNotifyAdded(null), 5000)
+				setTimeout(() => setNotifyAdded(null), 10000)
 			})
+      .catch(err => {
+        setErrorMessage(err.response.data.error);
+        setTimeout(() => setErrorMessage(null), 10000);
+      })
 	  }
 
 	  setNewName('');
@@ -136,7 +135,7 @@ const App = () => {
 		.then(() => setPersons(persons.filter(person => person.id !== id)))
 		.catch(() => {
 			setErrorMessage(`Information of ${name} has been already been removed from server`)
-			setTimeout(() => setErrorMessage(null), 5000)
+			setTimeout(() => setErrorMessage(null), 10000)
 		})
 	}
   }
