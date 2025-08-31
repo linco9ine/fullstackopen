@@ -14,13 +14,13 @@ router.post('/', userExtractor, async (request, response) => {
   const user = request.user
 
   if (!user) {
-    return res.status(400).json({ error: "UserId missing or not valid" })
+    return response.status(400).json({ error: "UserId missing or not valid" })
   }
 
   request.body.likes = request.body.likes ? request.body.likes : 0
 
   if (!request.body.title || !request.body.url) {
-    return response.status(400).end()
+    return response.status(400).json({ error: "title and url must be provided" })
   }
   
   const blog = new Blog({ ...request.body, user: user.id })
